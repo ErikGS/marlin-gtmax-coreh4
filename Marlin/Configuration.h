@@ -2080,12 +2080,13 @@
 
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
+// TODO: if base = glass x=2 y=2 else x=3 y=3
 // Set the number of grid points per dimension.
-#define GRID_MAX_POINTS_X 3
-#define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
+#define GRID_MAX_POINTS_X 2
+#define GRID_MAX_POINTS_Y 2
 
 // Probe along the Y axis, advancing X after each column
-#define PROBE_Y_FIRST
+//#define PROBE_Y_FIRST
 
 #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
