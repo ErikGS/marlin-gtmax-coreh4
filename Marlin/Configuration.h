@@ -1693,7 +1693,7 @@
 #define Z_CLEARANCE_MULTI_PROBE 30    // Z Clearance between multiple probes
 #define Z_AFTER_PROBING 40            // Z position after probing is done
 
-#define Z_PROBE_LOW_POINT -4.25 // Farthest distance below the trigger-point to go before stopping
+#define Z_PROBE_LOW_POINT -4 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -5
@@ -1904,9 +1904,9 @@
   #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
   #define NUM_RUNOUT_SENSORS 1            // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
 
-  #define FIL_RUNOUT_STATE LOW // Pin state indicating that filament is NOT present.
-  // #define FIL_RUNOUT_PULLUP    // Use internal pullup for filament runout pins.
-   #define FIL_RUNOUT_PULLDOWN           // Use internal pulldown for filament runout pins.
+  #define FIL_RUNOUT_STATE HIGH // Pin state indicating that filament is NOT present.
+  #define FIL_RUNOUT_PULLUP    // Use internal pullup for filament runout pins.
+  // #define FIL_RUNOUT_PULLDOWN           // Use internal pulldown for filament runout pins.
   // #define WATCH_ALL_RUNOUT_SENSORS      // Execute runout script on any triggering sensor, not only for the active extruder.
   //  This is automatically enabled for MIXING_EXTRUDERs.
 
@@ -2016,7 +2016,7 @@
 /**
  * Auto-leveling needs preheating
  */
-#define PREHEAT_BEFORE_LEVELING
+//#define PREHEAT_BEFORE_LEVELING
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
 #define LEVELING_NOZZLE_TEMP 200 // (°C) Only applies to E0 at this time
 #define LEVELING_BED_TEMP 90
