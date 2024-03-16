@@ -1443,10 +1443,10 @@
 // A probe deployed by moving the x-axis, such as the Wilson II's rack-and-pinion probe designed by Marty Rice.
 #define RACK_AND_PINION_PROBE
 #if ENABLED(RACK_AND_PINION_PROBE)
-  #define Z_PROBE_DEPLOY_X 100
-  #define Z_PROBE_RETRACT_X 100
+  #define Z_PROBE_DEPLOY_X X_MIN_POS
+  #define Z_PROBE_RETRACT_X 30
   #define Z_PROBE_RETRACT_Y 97.5
-  //#define TOUCH_MI_RETRACT_Z -2
+  #define TOUCH_MI_RETRACT_Z -2
 #endif
 
 /**
@@ -2199,7 +2199,7 @@
  * Commands to execute at the end of G29 probing.
  * Useful to retract or move the Z probe out of the way.
  */
-#define Z_PROBE_END_SCRIPT "G1 Z30 F600\nG1 X0 Y0 F1800\nG1 Z0 F480\nG1 Z5 F600"
+#define Z_PROBE_END_SCRIPT "G1 Z30 F1200\nG1 X30 Y97.5 F1800\nG1 Z0 F500\nG1 Z5 F800"
 
 // @section homing
 
