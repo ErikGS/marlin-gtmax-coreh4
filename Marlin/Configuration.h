@@ -1624,17 +1624,17 @@
 #define Z_PROBE_FEEDRATE_FAST (20 * 60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
-#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 2)
+#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 4)
 
 /**                                                          \
  * Probe Activation Switch                                   \
  * A switch indicating proper deployment, or an optical      \
  * switch triggered when the carriage is near the bed.       \
  */
-// #define PROBE_ACTIVATION_SWITCH
+#define PROBE_ACTIVATION_SWITCH
 #if ENABLED(PROBE_ACTIVATION_SWITCH)
-#define PROBE_ACTIVATION_SWITCH_STATE LOW // State indicating probe is active
-// #define PROBE_ACTIVATION_SWITCH_PIN PC6 // Override default pin
+#define PROBE_ACTIVATION_SWITCH_STATE HIGH // State indicating probe is active
+#define PROBE_ACTIVATION_SWITCH_PIN Z_MIN_PIN // Override default pin
 #endif
 
 /**
@@ -1693,7 +1693,7 @@
 #define Z_CLEARANCE_MULTI_PROBE 30    // Z Clearance between multiple probes
 #define Z_AFTER_PROBING 40            // Z position after probing is done
 
-#define Z_PROBE_LOW_POINT -4 // Farthest distance below the trigger-point to go before stopping
+#define Z_PROBE_LOW_POINT -4.25 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
 #define Z_PROBE_OFFSET_RANGE_MIN -5
@@ -1715,21 +1715,21 @@
  * These options are most useful for the BLTouch probe, but may also improve
  * readings with inductive probes and piezo sensors.
  */
-//#define PROBING_HEATERS_OFF       // Turn heaters off when probing
+#define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #if ENABLED(PROBING_HEATERS_OFF)
-//#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
-//#define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude)
+#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
+#define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude)
 #endif
 #define PROBING_FANS_OFF // Turn fans off when probing
 // #define PROBING_ESTEPPERS_OFF     // Turn all extruder steppers off when probing
 // #define PROBING_STEPPERS_OFF      // Turn all steppers off (unless needed to hold position) when probing (including extruders)
-#define DELAY_BEFORE_PROBING 200 // (ms) To prevent vibrations from triggering piezo sensors
+#define DELAY_BEFORE_PROBING 250 // (ms) To prevent vibrations from triggering piezo sensors
 
 // Require minimum nozzle and/or bed temperature for probing
-//#define PREHEAT_BEFORE_PROBING
+#define PREHEAT_BEFORE_PROBING
 #if ENABLED(PREHEAT_BEFORE_PROBING)
-#define PROBING_NOZZLE_TEMP 80 // (°C) Only applies to E0 at this time
-#define PROBING_BED_TEMP 80
+#define PROBING_NOZZLE_TEMP 200 // (°C) Only applies to E0 at this time
+#define PROBING_BED_TEMP 90
 #endif
 
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
@@ -1763,7 +1763,7 @@
 // @section extruder
 
 #define DISABLE_E true           // Disable the extruder when not stepping
-#define DISABLE_INACTIVE_EXTRUDER // Keep only the active extruder enabled
+//#define DISABLE_INACTIVE_EXTRUDER // Keep only the active extruder enabled
 
 // @section motion
 
@@ -1905,8 +1905,8 @@
   #define NUM_RUNOUT_SENSORS 1            // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
 
   #define FIL_RUNOUT_STATE LOW // Pin state indicating that filament is NOT present.
-  #define FIL_RUNOUT_PULLUP    // Use internal pullup for filament runout pins.
-  // #define FIL_RUNOUT_PULLDOWN           // Use internal pulldown for filament runout pins.
+  // #define FIL_RUNOUT_PULLUP    // Use internal pullup for filament runout pins.
+   #define FIL_RUNOUT_PULLDOWN           // Use internal pulldown for filament runout pins.
   // #define WATCH_ALL_RUNOUT_SENSORS      // Execute runout script on any triggering sensor, not only for the active extruder.
   //  This is automatically enabled for MIXING_EXTRUDERs.
 
@@ -2016,10 +2016,10 @@
 /**
  * Auto-leveling needs preheating
  */
-//#define PREHEAT_BEFORE_LEVELING
+#define PREHEAT_BEFORE_LEVELING
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
-#define LEVELING_NOZZLE_TEMP 60 // (°C) Only applies to E0 at this time
-#define LEVELING_BED_TEMP 60
+#define LEVELING_NOZZLE_TEMP 200 // (°C) Only applies to E0 at this time
+#define LEVELING_BED_TEMP 90
 #endif
 
 /**
@@ -2199,7 +2199,7 @@
  * Commands to execute at the end of G29 probing.
  * Useful to retract or move the Z probe out of the way.
  */
-#define Z_PROBE_END_SCRIPT "G1 Z50 F600\nG1 X150 Y100 F1200\nG1 Z0 F480\nG1 Z50 F600"
+#define Z_PROBE_END_SCRIPT "G1 Z30 F600\nG1 X0 Y0 F1800\nG1 Z0 F480\nG1 Z5 F600"
 
 // @section homing
 
@@ -2389,7 +2389,7 @@
 // Specify a park position as { X, Y, Z_raise }
 #define NOZZLE_PARK_POINT                  \
   {                                        \
-    (X_MIN_POS + 10), (Y_MIN_POS + 10), 30 \
+    (X_MIN_POS + 15), (Y_MIN_POS + 15), 30 \
   }
 #define NOZZLE_PARK_MOVE 0         // Park motion: 0 = XY Move, 1 = X Only, 2 = Y Only, 3 = X before Y, 4 = Y before X
 #define NOZZLE_PARK_Z_RAISE_MIN 10  // (mm) Always raise Z by at least this distance
