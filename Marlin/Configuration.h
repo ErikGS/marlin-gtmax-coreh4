@@ -1234,14 +1234,14 @@
  */
 #define DEFAULT_MAX_FEEDRATE \
   {                          \
-    300, 300, 20, 60         \
+    250, 250, 20, 60         \
   }
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD
 #if ENABLED(LIMITED_MAX_FR_EDITING)
 #define MAX_FEEDRATE_EDIT_VALUES \
   {                              \
-    300, 300, 25, 60             \
+    250, 250, 20, 60             \
   } // ...or, set your own edit limits
 #endif
 
@@ -1253,14 +1253,14 @@
  */
 #define DEFAULT_MAX_ACCELERATION \
   {                              \
-    5000, 5000, 200, 5000        \
+    5000, 5000, 500, 5000        \
   }
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
 #define MAX_ACCEL_EDIT_VALUES \
   {                           \
-    5000, 5000, 300, 7000    \
+    5000, 5000, 500, 5000    \
   } // ...or, set your own edit limits
 #endif
 
