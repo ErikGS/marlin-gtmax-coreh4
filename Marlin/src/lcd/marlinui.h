@@ -90,8 +90,13 @@ typedef bool (*statusResetFunc_t)();
 
 #if EITHER(HAS_WIRED_LCD, DWIN_CREALITY_LCD_JYERSUI)
   #define LCD_WITH_BLINK 1
-  #define LCD_UPDATE_INTERVAL 250 // Lower interval for better performance
-  //#define LCD_UPDATE_INTERVAL TERN(HAS_TOUCH_BUTTONS, 50, 250) // default implementation
+  
+  // Use custom or default value for LCD Update interval
+  #if LCD_REFRESH_RATE
+    #define LCD_UPDATE_INTERVAL LCD_REFRESH_RATE // Custom LCD Update interval
+  #else
+    #define LCD_UPDATE_INTERVAL TERN(HAS_TOUCH_BUTTONS, 50, 100) // default implementation
+  #endif
 #endif
 
 #if HAS_MARLINUI_U8GLIB

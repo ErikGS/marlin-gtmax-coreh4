@@ -2570,6 +2570,16 @@
 // @section interface
 
 /**
+ * LCD Update Interval in ms (how often to refresh the LCD).
+ * 
+ * BEWARE that shorter rates will be heavy on CPU and can leave it unresponsive,
+ * as well as longer rates will make the LCD slower and can leave it unresponsive.
+ * 
+ * The approach taken is that it's better to have a bit less responsive LCD than CPU.
+*/
+#define LCD_REFRESH_RATE 250 // Set to 0 to use Marlin default of 50 if HAS_TOUCH_BUTTONS, else 100.
+
+/**
  * LCD LANGUAGE
  *
  * Select the language to display on the LCD. These languages are available:
