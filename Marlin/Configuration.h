@@ -1307,7 +1307,7 @@
 #endif
 #endif
 
-#define DEFAULT_EJERK 5.0 // May be used by Linear Advance
+#define DEFAULT_EJERK 10.0 // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -1318,7 +1318,7 @@
  */
 #if DISABLED(CLASSIC_JERK)
 #define JUNCTION_DEVIATION_MM 0.0192 // (mm) Distance from real junction edge
-#define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
+//#define JD_HANDLE_SMALL_SEGMENTS    // Use curvature estimation instead of just the junction angle
                                     // for small segments (< 1mm) with large junction angles (> 135°).
 #endif
 
@@ -3396,7 +3396,7 @@
 // be used to mitigate the associated resolution loss. If enabled,
 // some of the PWM cycles are stretched so on average the desired
 // duty cycle is attained.
-#define SOFT_PWM_DITHER
+//#define SOFT_PWM_DITHER
 
 // @section extras
 
