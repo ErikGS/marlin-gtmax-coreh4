@@ -644,8 +644,8 @@
 #define HEATER_4_MAXTEMP 290
 #define HEATER_5_MAXTEMP 290
 #define HEATER_6_MAXTEMP 290
-#define HEATER_7_MAXTEMP 290
-#define BED_MAXTEMP 140
+#define HEATER_7_MAXTEMP 292
+#define BED_MAXTEMP 120
 #define CHAMBER_MAXTEMP 100
 
 /**
@@ -654,7 +654,7 @@
  * (especially before PID tuning). Setting the target temperature too close to MAXTEMP guarantees
  * a MAXTEMP shutdown! Use these values to forbid temperatures being set too close to MAXTEMP.
  */
-#define HOTEND_OVERSHOOT 10 // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
+#define HOTEND_OVERSHOOT 8 // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
 #define BED_OVERSHOOT 10    // (°C) Forbid temperatures over MAXTEMP - OVERSHOOT
 #define COOLER_OVERSHOOT 2  // (°C) Forbid temperatures closer than OVERSHOOT
 
@@ -666,8 +666,8 @@
 
 // Enable PIDTEMP for PID control or MPCTEMP for Predictive Model.
 // temperature control. Disable both for bang-bang heating.
-// #define PIDTEMP          // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
-#define MPCTEMP // ** EXPERIMENTAL **
+#define PIDTEMP          // See the PID Tuning Guide at https://reprap.org/wiki/PID_Tuning
+// #define MPCTEMP // ** EXPERIMENTAL **
 
 #define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
@@ -718,7 +718,7 @@
     40.0f                \
   } // (W) Heat cartridge powers.
 
-#define MPC_INCLUDE_FAN // Model the fan speed?
+//#define MPC_INCLUDE_FAN // Model the fan speed?
 
 // Measured physical constants from M306
 #define MPC_BLOCK_HEAT_CAPACITY \
@@ -782,9 +782,9 @@
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  * @section bed temp
  */
-// #define PIDTEMPBED
+#define PIDTEMPBED
 
-// #define BED_LIMIT_SWITCHING
+//#define BED_LIMIT_SWITCHING
 
 /**
  * Max Bed Power
@@ -795,14 +795,14 @@
 #define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
 
 #if ENABLED(PIDTEMPBED)
-// #define MIN_BED_POWER 0
-// #define PID_BED_DEBUG // Print Bed PID debug data to the serial port.
+#define MIN_BED_POWER 0
+//#define PID_BED_DEBUG // Print Bed PID debug data to the serial port.
 
 // 120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
 // from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-#define DEFAULT_bedKp 10.00
-#define DEFAULT_bedKi .023
-#define DEFAULT_bedKd 305.4
+#define DEFAULT_bedKp 19.649
+#define DEFAULT_bedKi 3.476
+#define DEFAULT_bedKd 74.044
 
 // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -900,8 +900,8 @@
 
 #define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
 #define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
-#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
-#define THERMAL_PROTECTION_COOLER  // Enable thermal protection for the laser cooling
+//#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
+//#define THERMAL_PROTECTION_COOLER  // Enable thermal protection for the laser cooling
 
 //===========================================================================
 //============================= Mechanical Settings =========================
@@ -1696,8 +1696,8 @@
 #define Z_PROBE_LOW_POINT -4 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
-#define Z_PROBE_OFFSET_RANGE_MIN -5
-#define Z_PROBE_OFFSET_RANGE_MAX 5
+#define Z_PROBE_OFFSET_RANGE_MIN -4
+#define Z_PROBE_OFFSET_RANGE_MAX 4
 
 // Enable the M48 repeatability test to test probe accuracy
 #define Z_MIN_PROBE_REPEATABILITY_TEST
@@ -1723,12 +1723,12 @@
 #define PROBING_FANS_OFF // Turn fans off when probing
 // #define PROBING_ESTEPPERS_OFF     // Turn all extruder steppers off when probing
 // #define PROBING_STEPPERS_OFF      // Turn all steppers off (unless needed to hold position) when probing (including extruders)
-#define DELAY_BEFORE_PROBING 250 // (ms) To prevent vibrations from triggering piezo sensors
+#define DELAY_BEFORE_PROBING 300 // (ms) To prevent vibrations from triggering piezo sensors
 
 // Require minimum nozzle and/or bed temperature for probing
 #define PREHEAT_BEFORE_PROBING
 #if ENABLED(PREHEAT_BEFORE_PROBING)
-#define PROBING_NOZZLE_TEMP 200 // (°C) Only applies to E0 at this time
+#define PROBING_NOZZLE_TEMP 100 // (°C) Only applies to E0 at this time
 #define PROBING_BED_TEMP 90
 #endif
 
@@ -1883,7 +1883,7 @@
 #endif
 
 #if EITHER(MIN_SOFTWARE_ENDSTOPS, MAX_SOFTWARE_ENDSTOPS)
-// #define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
+//#define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
 #endif
 
 /**
@@ -1904,7 +1904,7 @@
   #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
   #define NUM_RUNOUT_SENSORS 1            // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
 
-  #define FIL_RUNOUT_STATE HIGH // Pin state indicating that filament is NOT present.
+  #define FIL_RUNOUT_STATE LOW // Pin state indicating that filament is NOT present.
   #define FIL_RUNOUT_PULLUP    // Use internal pullup for filament runout pins.
   // #define FIL_RUNOUT_PULLDOWN           // Use internal pulldown for filament runout pins.
   // #define WATCH_ALL_RUNOUT_SENSORS      // Execute runout script on any triggering sensor, not only for the active extruder.
@@ -2010,15 +2010,15 @@
  * these options to restore the prior leveling state or to always enable
  * leveling immediately after G28.
  */
-#define RESTORE_LEVELING_AFTER_G28
-//#define ENABLE_LEVELING_AFTER_G28
+//#define RESTORE_LEVELING_AFTER_G28
+#define ENABLE_LEVELING_AFTER_G28
 
 /**
  * Auto-leveling needs preheating
  */
 //#define PREHEAT_BEFORE_LEVELING
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
-#define LEVELING_NOZZLE_TEMP 200 // (°C) Only applies to E0 at this time
+#define LEVELING_NOZZLE_TEMP 100 // (°C) Only applies to E0 at this time
 #define LEVELING_BED_TEMP 90
 #endif
 
@@ -2079,17 +2079,15 @@
 #endif
 
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
-
 // TODO: if base = glass x=2 y=2 else x=3 y=3
 // Set the number of grid points per dimension.
-#define GRID_MAX_POINTS_X 2
+#define GRID_MAX_POINTS_X 3
 #define GRID_MAX_POINTS_Y 2
 
 // Probe along the Y axis, advancing X after each column
 //#define PROBE_Y_FIRST
 
 #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
-
 // Beyond the probed grid, continue the implied tilt?
 // Default is to maintain the height of the nearest edge.
 //#define EXTRAPOLATE_BEYOND_GRID
@@ -2098,7 +2096,7 @@
 // Experimental Subdivision of the grid by Catmull-Rom method.
 // Synthesizes intermediate points to produce a more detailed mesh.
 //
-// #define ABL_BILINEAR_SUBDIVISION
+//#define ABL_BILINEAR_SUBDIVISION
 #if ENABLED(ABL_BILINEAR_SUBDIVISION)
 // Number of subdivisions between probe points
 #define BILINEAR_SUBDIVISIONS 3
@@ -2199,7 +2197,7 @@
  * Commands to execute at the end of G29 probing.
  * Useful to retract or move the Z probe out of the way.
  */
-#define Z_PROBE_END_SCRIPT "G1 Z30 F1200\nG1 X30 Y97.5 F1800\nG1 Z0 F500\nG1 Z5 F800"
+#define Z_PROBE_END_SCRIPT "G1 Z50 F1200\nG1 X50 Y50 F1800\nG1 Z0 F500\nG1 Z5 F800"
 
 // @section homing
 
@@ -2228,14 +2226,14 @@
 #define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-#define Z_SAFE_HOMING_X_POINT X_CENTER // X point for Z homing
-#define Z_SAFE_HOMING_Y_POINT Y_CENTER // Y point for Z homing
+  #define Z_SAFE_HOMING_X_POINT X_CENTER // X point for Z homing
+  #define Z_SAFE_HOMING_Y_POINT Y_CENTER // Y point for Z homing
 #endif
 
 // Homing speeds (linear=mm/min, rotational=°/min)
 #define HOMING_FEEDRATE_MM_M       \
   {                                \
-    (50 * 60), (50 * 60), (40 * 60) \
+    (40 * 60), (40 * 60), (30 * 60) \
   }
 
 // Validate that endstops are triggered on homing moves
@@ -2315,7 +2313,7 @@
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
 #define EEPROM_SETTINGS // Persistent storage with M500 and M501
-#define DISABLE_M503        // Saves ~2700 bytes of flash. Disable for release!
+//#define DISABLE_M503        // Saves ~2700 bytes of flash. Disable for release!
 #define EEPROM_CHITCHAT    // Give feedback on EEPROM commands. Disable to save PROGMEM.
 #define EEPROM_BOOT_SILENT // Keep M503 quiet and only give errors during first load
 #if ENABLED(EEPROM_SETTINGS)
@@ -2675,7 +2673,7 @@
 //
 //  Set this option if CLOCKWISE causes values to DECREASE
 //
-#define REVERSE_ENCODER_DIRECTION
+//#define REVERSE_ENCODER_DIRECTION
 
 //
 // This option reverses the encoder direction for navigating LCD menus.
@@ -2698,7 +2696,7 @@
 //
 // This option increases encoder samples to filter out phantom encoder clicks caused by EMI noise.
 //
-// #define ENCODER_NOISE_FILTER
+#define ENCODER_NOISE_FILTER
 #if ENABLED(ENCODER_NOISE_FILTER)
 #define ENCODER_SAMPLES 10
 #endif
